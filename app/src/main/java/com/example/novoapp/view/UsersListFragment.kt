@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.novoapp.R
 import com.example.novoapp.adapter.PostListAdapter
 import com.example.novoapp.adapter.UsersListAdapter
+import com.example.novoapp.model.ResponseData
 import com.example.novoapp.model.UsersList
 import com.example.novoapp.repository.ServerRepository
 import com.example.novoapp.service.ApiService
@@ -25,7 +27,7 @@ import javax.inject.Inject
 
 class UsersListFragment : Fragment(),UsersListAdapter.OnClickItemListner {
 
-    private lateinit var userList: List<UsersList>
+    private lateinit var userList: List<ResponseData>
     private lateinit var usersAdapter: UsersListAdapter
     private lateinit var viewModel: UsersListViewModel
 
@@ -50,11 +52,16 @@ class UsersListFragment : Fragment(),UsersListAdapter.OnClickItemListner {
     }
 
     private fun fetchRetroInfo() {
-        viewModel.getUsersData().observe(viewLifecycleOwner, Observer<List<UsersList>> {
-            it?.apply {
-                userList = it
-                usersAdapter.setAdapterList(it)
+        progressBar.visibility = View.VISIBLE
+        viewModel.getUsersData().observe(viewLifecycleOwner, Observer<UsersList> {
+            progressBar.visibility = View.INVISIBLE
+            if(it.responseData!=null){
+                userList = it.responseData
+                usersAdapter.setAdapterList(userList)
+            }else{
+                Toast.makeText(activity,it.error.toString(),Toast.LENGTH_LONG).show()
             }
+
         }
         )
     }
