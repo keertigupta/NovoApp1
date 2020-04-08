@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/userList">
+    <fragment
+    android:id="@+id/userList"
+    android:name="com.example.novoapp.view.UsersListFragment"
+    android:label="List Fragment"
+    tools:layout="@layout/fragment_users">
+    <action
+        android:id="@+id/post_action"
+        app:destination="@id/userDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetail"
+        android:name="com.example.novoapp.view.UserDetailsFragment"
+        android:label=" DetailFragment"
+        tools:layout="@layout/fragment_users">
+        <action
+            android:id="@+id/comments_action"
+            app:destination="@id/commentList" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentList"
+        android:name="com.example.novoapp.view.PostCommentsFragment"
+        android:label="Comment Fragment"
+        tools:layout="@layout/post_comments_fragment">
+</fragment>
+
+</navigation>
