@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.novoapp.R
+import com.example.novoapp.model.ResponseData
 import com.example.novoapp.model.UsersList
 
 import java.util.*
@@ -17,14 +18,14 @@ import java.util.*
 class UsersListAdapter(
     var context: Context,
     private val mItemClickLis:OnClickItemListner) : RecyclerView.Adapter<UsersListAdapter.MyViewHolder>() {
-    private var projectArrayList: List<UsersList>  = emptyList<UsersList>()
+    private var projectArrayList: List<ResponseData>  = emptyList<ResponseData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item, parent, false)
         return MyViewHolder(view,mItemClickLis)
     }
-    fun setAdapterList(list: List<UsersList> ){
+    fun setAdapterList(list: List<ResponseData> ){
         projectArrayList = list
         notifyDataSetChanged()
     }

@@ -23,7 +23,7 @@ import javax.inject.Inject
 class ServerRepository {
 
 
-    private val mutableData:MutableLiveData<List<UsersList>> = MutableLiveData()
+    private val mutableData:MutableLiveData<UsersList> = MutableLiveData()
 
     private val mutablePostData:MutableLiveData<List<Posts>> = MutableLiveData()
 
@@ -39,7 +39,7 @@ class ServerRepository {
 
 
 
-    fun getUsersData() : LiveData<List<UsersList>> {
+    fun getUsersData() : LiveData<UsersList> {
 
 
       //  val call: Call<List<ResponseData>> = RetrofitClient.service.callApiForUsers()
@@ -47,25 +47,15 @@ class ServerRepository {
         call.enqueue(object : Callback<List<ResponseData>> {
             override fun onFailure(call: Call<List<ResponseData>>, t: Throwable) {
                 Log.d(">>> onFailure",t.message!!)
+                mutableData.postValue(UsersList(t))
             }
 
             override fun onResponse(call: Call<List<ResponseData>>, response: Response<List<ResponseData>>) {
                 if(response.isSuccessful){
-                    Log.d(">>>>",response.body().toString())
-                    var usersList = mutableListOf<UsersList>()
-                    for(user in response.body()!!)
-                    {
-                        var u = UsersList(
-                            id = user.id,
-                            name = user.name  ,
-                            email = user.email,
-                            username = user.username,
-                            error = null
-                        )
-                        usersList.add(u)
-                    }
-                    mutableData.postValue(usersList)
+
+                    mutableData.postValue(UsersList(response.body(),null))
                 }else{
+
                    Log.d(">>> onResponse",response.message())
                 }
             }

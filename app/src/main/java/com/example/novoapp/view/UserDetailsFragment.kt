@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.novoapp.R
 import com.example.novoapp.adapter.PostListAdapter
 import com.example.novoapp.model.Posts
+import com.example.novoapp.model.ResponseData
 import com.example.novoapp.model.UsersList
 import com.example.novoapp.viewModel.CustomViewModelFactory
 import com.example.novoapp.viewModel.UserDetailsViewModel
@@ -44,7 +45,7 @@ class UserDetailsFragment : Fragment(),PostListAdapter.OnClickItemListner {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var user = arguments!!.getParcelable<UsersList>("User")
+        var user = arguments!!.getParcelable<ResponseData>("User")
         user?.let {
             user_name.text = it.name
             user_email.text = it.email

@@ -1,10 +1,12 @@
 
 package com.example.novoapp.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
-
+@Parcelize
 data class Address (
 
 	@SerializedName("street") val street : String,
@@ -12,4 +14,4 @@ data class Address (
 	@SerializedName("city") val city : String,
 	@SerializedName("zipcode") val zipcode : String,
 	@SerializedName("geo") val geo : Geo
-)
+):Parcelable

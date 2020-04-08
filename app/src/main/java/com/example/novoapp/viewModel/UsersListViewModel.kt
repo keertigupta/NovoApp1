@@ -16,7 +16,7 @@ class UsersListViewModel (private val serverRepository: ServerRepository) : View
         this.retrofitRepository  = retrofitRepository
         fetchPostInfoFromRepository()
     }*/
-    fun getUsersData(): LiveData<List<UsersList>> {
+    fun getUsersData(): LiveData<UsersList> {
         // progressBarLiveData.postValue(true)
     return serverRepository.getUsersData()
 
